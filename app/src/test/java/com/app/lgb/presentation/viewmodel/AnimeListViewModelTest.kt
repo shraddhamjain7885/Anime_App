@@ -30,11 +30,9 @@ class AnimeListViewModelTest {
         // Set the Main dispatcher for coroutines
         Dispatchers.setMain(testDispatcher)
 
-        // Create a mocked instance of GetAnimeListUseCase
-        getAnimeListUseCase = mockk()
+        getAnimeListUseCase = mockk(relaxed = true) //  relaxed mock prevents "no answer found"
+        viewModel = AnimeListViewModel(getAnimeListUseCase) //  same mock passed
 
-        // Initialize the ViewModel with the mocked use case
-        viewModel = AnimeListViewModel(getAnimeListUseCase)
     }
 
     @After
@@ -52,15 +50,12 @@ class AnimeListViewModelTest {
         )
 
         // Mock the use case to return the expected list of anime items
-        coEvery { getAnimeListUseCase() } returns flowOf(expectedList)
+        coEvery { getAnimeListUseCase.invoke() } returns flowOf(expectedList)
 
+        viewModel.fetchAnimeList()
 
-        // Act: Allow the ViewModel to collect the flow and update the StateFlow
-        testDispatcher.scheduler.advanceUntilIdle() // Ensure coroutine completes
-
-        // Debugging: Log the state value of animeList
-        println("Current animeList: ${viewModel.animeList.value}")
-
+        // Act: Allow coroutines to finish their work
+        testDispatcher.scheduler.advanceUntilIdle()
         // Assert: Check that the ViewModel's animeList StateFlow has the expected value
         assertEquals(expectedList, viewModel.animeList.value)
     }

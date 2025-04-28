@@ -22,7 +22,7 @@ class AnimeListViewModel @Inject constructor(
         fetchAnimeList()
     }
 
-    private fun fetchAnimeList() {
+   fun fetchAnimeList() {
         viewModelScope.launch {
             getAnimeListUseCase().collect {
                 _animeList.value = it
