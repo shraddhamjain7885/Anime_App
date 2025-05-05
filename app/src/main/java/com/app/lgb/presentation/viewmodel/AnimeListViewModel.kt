@@ -2,6 +2,7 @@ package com.app.lgb.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.app.core.commondata.Resource
 import com.app.lgb.domain.model.AnimeItem
 import com.app.lgb.domain.usecase.GetAnimeListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,8 +16,8 @@ class AnimeListViewModel @Inject constructor(
     private val getAnimeListUseCase: GetAnimeListUseCase
 ) : ViewModel() {
 
-    val _animeList = MutableStateFlow<List<AnimeItem>>(emptyList())
-    var animeList: StateFlow<List<AnimeItem>> = _animeList
+    val _animeList = MutableStateFlow<Resource<List<AnimeItem>>>(Resource.Loading())
+    var animeList: StateFlow<Resource<List<AnimeItem>>> = _animeList
 
     init {
         fetchAnimeList()
@@ -24,8 +25,8 @@ class AnimeListViewModel @Inject constructor(
 
    fun fetchAnimeList() {
         viewModelScope.launch {
-            getAnimeListUseCase().collect {
-                _animeList.value = it
+                getAnimeListUseCase().collect { resource ->
+                    _animeList.value = resource
             }
         }
     }

@@ -1,15 +1,16 @@
 # LGB
 LGB compose code
 
-//Created project code using public API, Used below details for coding
-//Created 2 screen : List of Items with Images and Details page
-//SOLID principles and display pattern for Presentation layer MVVM
-//Clean Code Architecture
-//Modularisation
-//Dagger hilt injection
-//Jetpack Compose
-//Coroutines, Kotlin Flow
-//Unit testcase for view model class 
+/*
+README.md Overview:
+- Description: MVVM Jetpack Compose Kotlin app demonstrating Clean Architecture
+- Features: Modularization, Hilt, Coroutines, Flow, Unit Tests, Error Handling
+- Modules: app, core, common
+- Made Use of public API to display list and detail page
+- How to Run: Clone, open in Android Studio, build and run
+- Screenshots: [Attach screenshots of AnimeList and AnimeDetail screens here]
+*/
 
-
+![img_1.png](img_1.png)
+![img_2.png](img_2.png)
 

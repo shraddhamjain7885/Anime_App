@@ -84,4 +84,7 @@ dependencies {
     testImplementation(libs.coroutines.test)
     testImplementation(libs.mockk)
     testImplementation(kotlin("test"))
+
+    implementation(project(":core:commondata"))
+
 }

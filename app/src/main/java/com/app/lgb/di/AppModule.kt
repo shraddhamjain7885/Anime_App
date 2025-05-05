@@ -1,5 +1,6 @@
 package com.app.lgb.di
 
+import com.app.core.commondata.Constant.BASE_URL
 import com.app.lgb.data.remote.AnimeApiService
 import com.app.lgb.data.repository.AnimeRepositoryImpl
 import com.app.lgb.domain.repository.AnimeRepository
@@ -15,7 +16,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
-    private const val BASE_URL = "https://api.jikan.moe/v4/"
+
 
     @Singleton
     @Provides

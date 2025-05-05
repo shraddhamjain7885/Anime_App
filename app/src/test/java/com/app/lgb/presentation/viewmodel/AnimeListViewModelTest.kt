@@ -1,5 +1,6 @@
 package com.app.lgb.presentation.viewmodel
 
+import com.app.core.commondata.Resource
 import com.app.lgb.domain.model.AnimeItem
 import com.app.lgb.domain.usecase.GetAnimeListUseCase
 import io.mockk.coEvery
@@ -12,7 +13,10 @@ import org.junit.After
 import org.junit.Before
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.*
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 
@@ -43,36 +47,51 @@ class AnimeListViewModelTest {
 
     @Test
     fun `when fetchAnimeList is successful, then animeList should be updated`() = runTest {
-        // Arrange: Set up the expected list of anime items
+        // Arrange
         val expectedList = listOf(
             AnimeItem(1, "AOT", "https://image.url/aot.jpg", "Titans attack."),
             AnimeItem(2, "Death Note", "https://image.url/dn.jpg", "Notebook kills.")
         )
 
-        // Mock the use case to return the expected list of anime items
-        coEvery { getAnimeListUseCase.invoke() } returns flowOf(expectedList)
+        // Mock the use case to return Resource.Success
+        coEvery { getAnimeListUseCase.invoke() } returns flowOf(Resource.Success(expectedList))
 
+        // Act
         viewModel.fetchAnimeList()
-
-        // Act: Allow coroutines to finish their work
         testDispatcher.scheduler.advanceUntilIdle()
-        // Assert: Check that the ViewModel's animeList StateFlow has the expected value
-        assertEquals(expectedList, viewModel.animeList.value)
-    }
 
+        // Assert
+        val actual = viewModel.animeList.value
+        assertTrue(actual is Resource.Success)
+        assertEquals(expectedList, (actual as Resource.Success).data)
+    }
 
     @Test
-    fun `when fetchAnimeList returns empty, then animeList should be empty`() = runTest {
-        // Arrange: Set up an empty list of anime items
-        val expectedEmptyList = emptyList<AnimeItem>()
+    fun `when fetchAnimeList returns error, then animeList should contain error message`() = runTest {
+        val errorMessage = "Network error"
+        coEvery { getAnimeListUseCase.invoke() } returns flowOf(Resource.Error(errorMessage))
 
-        // Mock the use case to return an empty list
-        coEvery { getAnimeListUseCase() } returns flowOf(expectedEmptyList)
+        viewModel.fetchAnimeList()
+        testDispatcher.scheduler.advanceUntilIdle()
 
-        // Act: Allow coroutines to finish their work
-        testDispatcher.scheduler.advanceUntilIdle() // Ensures the ViewModel is done collecting data
-
-        // Assert: Check that the ViewModel's animeList StateFlow is empty
-        assertEquals(expectedEmptyList, viewModel.animeList.value)
+        val result = viewModel.animeList.value
+        assertTrue(result is Resource.Error)
+        assertEquals(errorMessage, (result as Resource.Error).message)
     }
+
+    @Test
+    fun `when fetchAnimeList is loading, then animeList should be loading`() = runTest {
+        coEvery { getAnimeListUseCase.invoke() } returns flow {
+            emit(Resource.Loading())
+            delay(1000) // simulate API delay
+            emit(Resource.Success(emptyList()))
+        }
+
+        viewModel.fetchAnimeList()
+        testDispatcher.scheduler.advanceTimeBy(100)
+
+        val result = viewModel.animeList.value
+        assertTrue(result is Resource.Loading)
+    }
+
 }

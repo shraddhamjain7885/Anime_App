@@ -23,3 +23,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "LGB"
 include(":app")
+include(":core:commondata")
