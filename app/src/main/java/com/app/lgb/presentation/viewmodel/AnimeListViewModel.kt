@@ -3,8 +3,8 @@ package com.app.lgb.presentation.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.app.core.commondata.Resource
-import com.app.lgb.domain.model.AnimeItem
-import com.app.lgb.domain.usecase.GetAnimeListUseCase
+import com.app.domain.domain.model.AnimeItem
+import com.app.domain.domain.usecase.GetAnimeListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

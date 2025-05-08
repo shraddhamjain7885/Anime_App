@@ -1,8 +1,9 @@
 package com.app.lgb.presentation.viewmodel
 
 import com.app.core.commondata.Resource
-import com.app.lgb.domain.model.AnimeItem
-import com.app.lgb.domain.usecase.GetAnimeListUseCase
+import com.app.domain.domain.model.AnimeItem
+import com.app.domain.domain.usecase.GetAnimeListUseCase
+import com.app.domain.domain.utils.Constant.NETWORK_ERROR
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -18,7 +19,6 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.*
 import org.junit.Assert.assertTrue
 import org.junit.Test
-
 
 @ExperimentalCoroutinesApi
 class AnimeListViewModelTest {
@@ -67,17 +67,17 @@ class AnimeListViewModelTest {
     }
 
     @Test
-    fun `when fetchAnimeList returns error, then animeList should contain error message`() = runTest {
-        val errorMessage = "Network error"
-        coEvery { getAnimeListUseCase.invoke() } returns flowOf(Resource.Error(errorMessage))
+    fun `when fetchAnimeList returns error, then animeList should contain error message`() =
+        runTest {
+            coEvery { getAnimeListUseCase.invoke() } returns flowOf(Resource.Error(NETWORK_ERROR))
 
-        viewModel.fetchAnimeList()
-        testDispatcher.scheduler.advanceUntilIdle()
+            viewModel.fetchAnimeList()
+            testDispatcher.scheduler.advanceUntilIdle()
 
-        val result = viewModel.animeList.value
-        assertTrue(result is Resource.Error)
-        assertEquals(errorMessage, (result as Resource.Error).message)
-    }
+            val result = viewModel.animeList.value
+            assertTrue(result is Resource.Error)
+            assertEquals(NETWORK_ERROR, (result as Resource.Error).message)
+        }
 
     @Test
     fun `when fetchAnimeList is loading, then animeList should be loading`() = runTest {

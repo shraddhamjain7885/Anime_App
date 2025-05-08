@@ -3,4 +3,7 @@
     <string name="top_anime_header">Top Anime Summer 2013</string>
     <string name="desc">Description</string>
     <string name="back">Back</string>
+    <string name="something_went_wrong">Something went wrong!</string>
+    <string name="anim_not_found">Anime not found</string>
+    <string name="api_failure">API failure</string>
 </resources>

@@ -1,11 +1,10 @@
 package com.app.lgb.presentation.screen.detail
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -22,10 +21,10 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavBackStackEntry
-import coil.compose.rememberImagePainter
 import com.app.lgb.presentation.viewmodel.AnimeListViewModel
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import coil.compose.AsyncImage
 import com.app.core.commondata.Resource
 import com.app.lgb.R
 
@@ -50,7 +49,8 @@ fun AnimeDetailScreen(
         is Resource.Error -> {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 Text(
-                    text = animeListState.message ?: "Something went wrong!",
+                    text = animeListState.message
+                        ?: stringResource(id = R.string.something_went_wrong),
                     color = Color.Red,
                     style = MaterialTheme.typography.bodyLarge
                 )
@@ -62,7 +62,6 @@ fun AnimeDetailScreen(
 
             anime?.let {
                 Column(modifier = Modifier.padding(16.dp)) {
-                    // Top Row with Back Button and Title
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -71,7 +70,7 @@ fun AnimeDetailScreen(
                     ) {
                         IconButton(onClick = { navController.popBackStack() }) {
                             Icon(
-                                imageVector = Icons.Default.ArrowBack,
+                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                                 contentDescription = stringResource(R.string.back)
                             )
                         }
@@ -88,9 +87,8 @@ fun AnimeDetailScreen(
                         )
                     }
 
-                    // Image
-                    Image(
-                        painter = rememberImagePainter(it.imageUrl),
+                    AsyncImage(
+                        model = it.imageUrl,
                         contentDescription = it.title,
                         contentScale = ContentScale.Crop,
                         modifier = Modifier
@@ -100,10 +98,8 @@ fun AnimeDetailScreen(
 
                     Spacer(modifier = Modifier.height(8.dp))
 
-                    // Title
                     Text(
-                        text = it.title,
-                        style = MaterialTheme.typography.titleMedium
+                        text = it.title, style = MaterialTheme.typography.titleMedium
                     )
 
                     Spacer(modifier = Modifier.height(8.dp))
@@ -120,7 +116,7 @@ fun AnimeDetailScreen(
             } ?: run {
                 //  If anime with the ID is not found
                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                    Text("Anime not found", color = Color.Gray)
+                    Text(stringResource(id = R.string.anim_not_found), color = Color.Gray)
                 }
             }
         }

@@ -77,7 +77,7 @@ fun AnimeListScreen(
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = result.message ?: "Something went wrong!",
+                    text = result.message ?: stringResource(id = R.string.something_went_wrong),
                     color = Color.Red,
                     style = MaterialTheme.typography.bodyLarge
                 )
