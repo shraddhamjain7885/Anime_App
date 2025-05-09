@@ -11,6 +11,6 @@ README.md Overview:
 - Screenshots: [Attach screenshots of Splash screen, AnimeList and AnimeDetail screens here]
 */
 
-![Anime_splash_screenshot.png](Anime_splash_screenshot.png)
 ![Anime_list_screen.png](Anime_list_screen.png)
 ![Anime_detail_screen.png](Anime_detail_screen.png)
+![Anime_splash_screenshot.png](Anime_splash_screenshot.png)
