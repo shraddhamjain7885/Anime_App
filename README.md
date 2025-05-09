@@ -1,5 +1,5 @@
-# LGB
-LGB compose code
+# Anime App
+Anime App compose code
 
 /*
 README.md Overview:
@@ -11,6 +11,6 @@ README.md Overview:
 - Screenshots: [Attach screenshots of Splash screen, AnimeList and AnimeDetail screens here]
 */
 
-![splash.png](splash.png)
-![List_screenshot.png](List_screenshot.png)
-![List_detail_screenshot.png](List_detail_screenshot.png)
+![Anime_splash_screenshot.png](Anime_splash_screenshot.png)
+![Anime_list_screen.png](Anime_list_screen.png)
+![Anime_detail_screen.png](Anime_detail_screen.png)
