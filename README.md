@@ -3,6 +3,7 @@ Anime App compose code
 
 /*
 README.md Overview:
+
 -This app contains two screens : One for displaying a list of Anime which fetched from a public API and 
  other for showing the details of selected Anime item.
 - This is a modular MVVM clean architecture app that implements a structured and scalable approach using multiple
@@ -26,7 +27,7 @@ README.md Overview:
 - model: Defines domain model Item. 
 - repository: ItemRepository for fetching data
 - App uses Modularization, Hilt, Coroutines, Flow, Unit Tests, Error Handling
-- Modules: app, core, common, data, domain
+- Modules: app,common, data, domain
 - Made Use of public API to display list and detail page
 - Screenshots: [Attach screenshots of Splash screen, AnimeList and AnimeDetail screens here]
 */
