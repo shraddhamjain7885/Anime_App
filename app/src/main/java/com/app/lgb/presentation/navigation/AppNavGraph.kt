@@ -6,14 +6,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.app.lgb.presentation.screen.detail.AnimeDetailScreen
 import com.app.lgb.presentation.screen.list.AnimeListScreen
-import com.app.lgb.presentation.screen.splash.SplashScreen
 
 @Composable
 fun AppNavGraph(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = "splash") {
-        composable("splash") {
-            SplashScreen(navController)
-        }
+    NavHost(navController = navController, startDestination = "list") {
         composable("list") {
             AnimeListScreen(navController)
         }

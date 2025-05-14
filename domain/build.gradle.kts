@@ -46,21 +46,6 @@ dependencies {
     implementation(libs.hilt.android)
     implementation(libs.hilt.navigation.compose)
     kapt(libs.hilt.compiler)
-    //navigation
-    implementation(libs.androidx.navigation)
-
-    implementation(libs.lifecycle.viewmodel.compose)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-
-    //coroutine
-    implementation(libs.coroutines.android)
-
-    //retrofit
-    implementation(libs.retrofit)
-    implementation(libs.retrofit.gson)
-
-    //coil
-    implementation(libs.coil.compose)
 
     //junit
     testImplementation(libs.junit)
@@ -68,5 +53,5 @@ dependencies {
     testImplementation(libs.mockk)
     testImplementation(kotlin("test"))
 
-    implementation(project(":core:common"))
+    implementation(project(":common"))
 }
