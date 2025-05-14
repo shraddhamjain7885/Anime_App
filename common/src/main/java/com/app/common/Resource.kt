@@ -1,4 +1,4 @@
-package com.app.core.commondata
+package com.app.common
 
 sealed class Resource<T>(val data: T? = null, val message: String? = null) {
     class Loading<T> : Resource<T>()

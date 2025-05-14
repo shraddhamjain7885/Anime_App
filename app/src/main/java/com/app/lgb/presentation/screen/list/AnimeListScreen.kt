@@ -19,7 +19,7 @@ import coil.compose.rememberImagePainter
 import androidx.navigation.NavController
 import com.app.lgb.presentation.viewmodel.AnimeListViewModel
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.app.core.commondata.Resource
+import com.app.common.Resource
 import com.app.lgb.R
 
 @Composable

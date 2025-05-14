@@ -1,4 +1,4 @@
-package com.app.core.commondata
+package com.app.common
 
 object Constant {
     const val BASE_URL = "https://api.jikan.moe/v4/"

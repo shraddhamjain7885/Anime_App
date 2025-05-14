@@ -1,6 +1,6 @@
 package com.app.data.repository
 
-import com.app.core.commondata.Resource
+import com.app.common.Resource
 import com.app.data.mapper.toDomain
 import com.app.data.remote.AnimeApiService
 import com.app.domain.domain.model.AnimeItem

@@ -1,6 +1,6 @@
 package com.app.data.di
 
-import com.app.core.commondata.Constant.BASE_URL
+import com.app.common.Constant.BASE_URL
 import com.app.data.remote.AnimeApiService
 import dagger.Module
 import dagger.Provides

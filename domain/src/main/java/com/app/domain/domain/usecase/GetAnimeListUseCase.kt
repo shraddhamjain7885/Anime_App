@@ -1,6 +1,6 @@
 package com.app.domain.domain.usecase
 
-import com.app.core.commondata.Resource
+import com.app.common.Resource
 import com.app.domain.domain.model.AnimeItem
 import com.app.domain.domain.repository.AnimeRepository
 import kotlinx.coroutines.flow.Flow
