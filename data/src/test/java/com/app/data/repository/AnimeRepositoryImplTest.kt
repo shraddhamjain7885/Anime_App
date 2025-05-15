@@ -51,8 +51,8 @@ class AnimeRepositoryImplTest {
         assert(emissions[0] is Resource.Loading)
         assert(emissions[1] is Resource.Success)
         val items = (emissions[1] as Resource.Success).data
-        assertEquals("Naruto", items!![0].title)
-        assertEquals("image_url", items[0].imageUrl)
+        assertEquals("Naruto", items.orEmpty()[0].title)
+        assertEquals("image_url", items.orEmpty()[0].imageUrl)
     }
 
     @Test

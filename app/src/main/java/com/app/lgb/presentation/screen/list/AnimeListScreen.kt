@@ -28,60 +28,67 @@ fun AnimeListScreen(
     viewModel: AnimeListViewModel = hiltViewModel()
 ) {
     val animeListState = viewModel.animeList.collectAsState()
-
     when (val result = animeListState.value) {
-        is Resource.Loading -> {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
+        is Resource.Loading -> LoadingScreen()
+        is Resource.Success -> Column {
+            Text(
+                text = stringResource(id = R.string.top_anime_header),
+                style = MaterialTheme.typography.headlineMedium,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+            )
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f) // Ensure this takes remaining space
             ) {
-                CircularProgressIndicator()
-            }
-        }
-
-        is Resource.Success -> {
-            Column {
-                Text(
-                    text = stringResource(id = R.string.top_anime_header),
-                    style = MaterialTheme.typography.headlineMedium,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp)
-                )
-                LazyColumn {
-                    items(result.data!!.size) { index ->
-                        val item = result.data!![index]
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .clickable { navController.navigate("detail/${item.malId}") }
-                                .padding(8.dp)
-                        ) {
-                            Image(
-                                painter = rememberImagePainter(item.imageUrl),
-                                contentDescription = item.title,
-                                contentScale = ContentScale.Crop,
-                                modifier = Modifier.size(100.dp)
-                            )
-                            Spacer(modifier = Modifier.width(8.dp))
-                            Text(text = item.title, style = MaterialTheme.typography.titleMedium)
-                        }
+                val animeList = result.data.orEmpty()
+                items(animeList.size) { index ->
+                    val item = animeList[index]
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable { navController.navigate("detail/${item.malId}") }
+                            .padding(8.dp)
+                    ) {
+                        Image(
+                            painter = rememberImagePainter(item.imageUrl),
+                            contentDescription = item.title,
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier.size(100.dp)
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(text = item.title, style = MaterialTheme.typography.titleMedium)
                     }
                 }
             }
         }
 
-        is Resource.Error -> {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = result.message ?: stringResource(id = R.string.something_went_wrong),
-                    color = Color.Red,
-                    style = MaterialTheme.typography.bodyLarge
-                )
-            }
-        }
+        is Resource.Error -> ErrorScreen(result.message)
+    }
+}
+
+@Composable
+fun LoadingScreen() {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        CircularProgressIndicator()
+    }
+}
+
+@Composable
+fun ErrorScreen(message: String?) {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text = message ?: stringResource(id = R.string.something_went_wrong),
+            color = Color.Red,
+            style = MaterialTheme.typography.bodyLarge
+        )
     }
 }

@@ -16,17 +16,17 @@ class AnimeListViewModel @Inject constructor(
     private val getAnimeListUseCase: GetAnimeListUseCase
 ) : ViewModel() {
 
-    val _animeList = MutableStateFlow<Resource<List<AnimeItem>>>(Resource.Loading())
-    var animeList: StateFlow<Resource<List<AnimeItem>>> = _animeList
+    private val _animeList = MutableStateFlow<Resource<List<AnimeItem>>>(Resource.Loading())
+    val animeList: StateFlow<Resource<List<AnimeItem>>> = _animeList
 
     init {
         fetchAnimeList()
     }
 
-   fun fetchAnimeList() {
+    fun fetchAnimeList() {
         viewModelScope.launch {
-                getAnimeListUseCase().collect { resource ->
-                    _animeList.value = resource
+            getAnimeListUseCase().collect { resource ->
+                _animeList.value = resource
             }
         }
     }

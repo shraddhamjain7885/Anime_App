@@ -26,6 +26,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.app.common.Resource
+import com.app.domain.domain.model.AnimeItem
 import com.app.lgb.R
 
 @Composable
@@ -36,89 +37,105 @@ fun AnimeDetailScreen(
 ) {
     val animeId = backStackEntry.arguments?.getString("animeId")?.toIntOrNull()
     val animeListState = viewModel.animeList.collectAsState().value
-    val scrollState = rememberScrollState()
 
     when (animeListState) {
-        is Resource.Loading -> {
-            // Loading State
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                CircularProgressIndicator()
-            }
-        }
-
-        is Resource.Error -> {
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                Text(
-                    text = animeListState.message
-                        ?: stringResource(id = R.string.something_went_wrong),
-                    color = Color.Red,
-                    style = MaterialTheme.typography.bodyLarge
-                )
-            }
-        }
-
+        is Resource.Loading -> LoadingState()
+        is Resource.Error -> ErrorState(animeListState.message)
         is Resource.Success -> {
-            val anime = animeListState.data!!.find { it.malId == animeId }
-
-            anime?.let {
-                Column(modifier = Modifier.padding(16.dp)) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(1.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        IconButton(onClick = { navController.popBackStack() }) {
-                            Icon(
-                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                contentDescription = stringResource(R.string.back)
-                            )
-                        }
-
-                        Spacer(modifier = Modifier.width(8.dp))
-
-                        Text(
-                            text = stringResource(R.string.desc),
-                            fontSize = 20.sp,
-                            style = MaterialTheme.typography.titleMedium,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                            modifier = Modifier.weight(1f)
-                        )
-                    }
-
-                    AsyncImage(
-                        model = it.imageUrl,
-                        contentDescription = it.title,
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(200.dp)
-                    )
-
-                    Spacer(modifier = Modifier.height(8.dp))
-
-                    Text(
-                        text = it.title, style = MaterialTheme.typography.titleMedium
-                    )
-
-                    Spacer(modifier = Modifier.height(8.dp))
-
-                    // Synopsis (Scrollable)
-                    Text(
-                        text = it.synopsis,
-                        style = MaterialTheme.typography.titleSmall,
-                        modifier = Modifier
-                            .weight(1f)
-                            .verticalScroll(scrollState)
-                    )
-                }
-            } ?: run {
-                //  If anime with the ID is not found
-                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                    Text(stringResource(id = R.string.anim_not_found), color = Color.Gray)
-                }
+            val anime = animeListState.data?.find { it.malId == animeId }
+            if (anime != null) {
+                AnimeDetailContent(anime = anime, navController = navController)
+            } else {
+                NotFoundState()
             }
         }
     }
 }
+
+@Composable
+fun LoadingState() {
+    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        CircularProgressIndicator()
+    }
+}
+
+@Composable
+fun ErrorState(message: String?) {
+    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        Text(
+            text = message ?: stringResource(id = R.string.something_went_wrong),
+            color = Color.Red,
+            style = MaterialTheme.typography.bodyLarge
+        )
+    }
+}
+
+@Composable
+fun NotFoundState() {
+    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        Text(stringResource(id = R.string.anim_not_found), color = Color.Gray)
+    }
+}
+
+@Composable
+fun AnimeDetailContent(anime: AnimeItem, navController: NavHostController) {
+    val scrollState = rememberScrollState()
+
+    Column(modifier = Modifier.padding(16.dp)) {
+        DetailHeader(navController)
+        AsyncImage(
+            model = anime.imageUrl,
+            contentDescription = anime.title,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(200.dp)
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Text(
+            text = anime.title,
+            style = MaterialTheme.typography.titleMedium
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Text(
+            text = anime.synopsis,
+            style = MaterialTheme.typography.titleSmall,
+            modifier = Modifier
+                .weight(1f)
+                .verticalScroll(scrollState)
+        )
+    }
+}
+
+@Composable
+fun DetailHeader(navController: NavHostController) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(1.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        IconButton(onClick = { navController.popBackStack() }) {
+            Icon(
+                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                contentDescription = stringResource(R.string.back)
+            )
+        }
+
+        Spacer(modifier = Modifier.width(8.dp))
+
+        Text(
+            text = stringResource(R.string.desc),
+            fontSize = 20.sp,
+            style = MaterialTheme.typography.titleMedium,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            modifier = Modifier.weight(1f)
+        )
+    }
+}
+
