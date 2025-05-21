@@ -94,4 +94,14 @@ class AnimeListViewModelTest {
         assertTrue(result is Resource.Loading)
     }
 
+    @Test
+    fun `setSelectedAnime updates selectedAnime state`() = runTest {
+        viewModel = AnimeListViewModel(getAnimeListUseCase)
+
+        val animeItem = AnimeItem(1, "Naruto", "url", "desc")
+        viewModel.setSelectedAnime(animeItem)
+
+        assertEquals(animeItem, viewModel.selectedAnime.value)
+    }
+
 }
