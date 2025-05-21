@@ -13,8 +13,8 @@ fun AppNavGraph(navController: NavHostController) {
         composable("list") {
             AnimeListScreen(navController)
         }
-        composable("detail/{animeId}") { backStackEntry ->
-            AnimeDetailScreen(navController = navController, backStackEntry)
+        composable("detail") { backStackEntry ->
+            AnimeDetailScreen(navController = navController, backStackEntry = backStackEntry)
         }
     }
 }

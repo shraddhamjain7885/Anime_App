@@ -2,6 +2,8 @@ package com.app.data.di
 
 import com.app.common.Constant.BASE_URL
 import com.app.data.remote.AnimeApiService
+import com.app.domain.repository.AnimeRepository
+import com.app.domain.usecase.GetAnimeListUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,6 +24,12 @@ object AppModule {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(AnimeApiService::class.java)
+    }
+
+
+    @Provides
+    fun provideGetAnimeListUseCase(repository: AnimeRepository): GetAnimeListUseCase {
+        return GetAnimeListUseCase(repository)
     }
 
 }

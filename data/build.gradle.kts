@@ -57,6 +57,6 @@ dependencies {
     testImplementation(libs.mockk)
     testImplementation(kotlin("test"))
 
-    implementation(project(":domain"))
     implementation(project(":common"))
+    implementation(project(":domain"))
 }

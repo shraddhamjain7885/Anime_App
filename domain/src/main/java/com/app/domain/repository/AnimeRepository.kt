@@ -1,7 +1,7 @@
-package com.app.domain.domain.repository
+package com.app.domain.repository
 
+import com.app.domain.model.AnimeItem
 import com.app.common.Resource
-import com.app.domain.domain.model.AnimeItem
 import kotlinx.coroutines.flow.Flow
 
 interface AnimeRepository {

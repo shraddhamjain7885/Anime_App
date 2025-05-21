@@ -49,7 +49,10 @@ fun AnimeListScreen(
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .clickable { navController.navigate("detail/${item.malId}") }
+                            .clickable {
+                                viewModel.setSelectedAnime(item)
+                                navController.navigate("detail")
+                            }
                             .padding(8.dp)
                     ) {
                         Image(

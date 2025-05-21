@@ -1,4 +1,4 @@
-package com.app.domain.domain.utils
+package com.app.domain.utils
 
 object Constant {
     const val NETWORK_ERROR = "Network error"

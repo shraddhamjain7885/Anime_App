@@ -59,4 +59,5 @@ kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "ko
 dagger-hilt = { id = "com.google.dagger.hilt.android", version = "2.48" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version = "1.9.21" }
 android-library = { id = "com.android.library", version.ref = "agp" }
+kotlin-library = { id = "org.jetbrains.kotlin.jvm", version = "1.9.23" }
 

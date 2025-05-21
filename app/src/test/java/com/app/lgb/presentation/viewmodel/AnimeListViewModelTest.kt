@@ -1,9 +1,9 @@
 package com.app.lgb.presentation.viewmodel
 
 import com.app.common.Resource
-import com.app.domain.domain.model.AnimeItem
-import com.app.domain.domain.usecase.GetAnimeListUseCase
-import com.app.domain.domain.utils.Constant.NETWORK_ERROR
+import com.app.domain.model.AnimeItem
+import com.app.domain.usecase.GetAnimeListUseCase
+import com.app.domain.utils.Constant.NETWORK_ERROR
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi

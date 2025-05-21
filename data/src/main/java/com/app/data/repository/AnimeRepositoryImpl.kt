@@ -3,8 +3,8 @@ package com.app.data.repository
 import com.app.common.Resource
 import com.app.data.mapper.toDomain
 import com.app.data.remote.AnimeApiService
-import com.app.domain.domain.model.AnimeItem
-import com.app.domain.domain.repository.AnimeRepository
+import com.app.domain.model.AnimeItem
+import com.app.domain.repository.AnimeRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject

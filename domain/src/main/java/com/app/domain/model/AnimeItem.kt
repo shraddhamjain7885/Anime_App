@@ -1,4 +1,4 @@
-package com.app.domain.domain.model
+package com.app.domain.model
 
 data class AnimeItem(
     val malId: Int,

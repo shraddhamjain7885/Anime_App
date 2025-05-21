@@ -1,7 +1,7 @@
 package com.app.data.mapper
 
 import com.app.data.remote.AnimeDto
-import com.app.domain.domain.model.AnimeItem
+import com.app.domain.model.AnimeItem
 
 fun AnimeDto.toDomain(): AnimeItem {
     return AnimeItem(

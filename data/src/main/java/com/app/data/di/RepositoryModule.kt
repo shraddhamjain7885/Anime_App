@@ -1,7 +1,7 @@
 package com.app.data.di
 
 import com.app.data.repository.AnimeRepositoryImpl
-import com.app.domain.domain.repository.AnimeRepository
+import com.app.domain.repository.AnimeRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

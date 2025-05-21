@@ -6,7 +6,7 @@ import com.app.data.remote.AnimeDto
 import com.app.data.remote.AnimeResponseDto
 import com.app.data.remote.ImagesDto
 import com.app.data.remote.JpgDto
-import com.app.domain.domain.utils.Constant.API_FAILURE
+import com.app.domain.utils.Constant.API_FAILURE
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
